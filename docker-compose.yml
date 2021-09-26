@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  streamlit:
+    volumes:
+      - ./streamlit/:/streamlit
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+
+    container_name: streamlit
+    restart: always
+
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - streamlit
